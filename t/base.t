@@ -17,7 +17,7 @@ my $app = Plack::App::Storage::Abstract->new(
 my $content = "some\nmultiline\ncontent";
 $app->storage->store('foo/bar/baz', \$content);
 
-test_psgi (
+test_psgi(
 	app => $app->to_app,
 	client => sub {
 		my ($cb) = @_;
