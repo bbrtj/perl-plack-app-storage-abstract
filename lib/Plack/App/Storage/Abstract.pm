@@ -44,6 +44,7 @@ sub call
 		}
 		else {
 			# StorageError or HandleError or unblessed error
+			$env->{'psgi.errors'}->print("$e");
 			return $self->_error_code(500);
 		}
 	}
@@ -123,6 +124,12 @@ but may be skipped if L</storage> is passed instead.
 =head2 encoding
 
 Encoding used for text MIME types. Default C<utf-8>.
+
+=head1 CAVEATS
+
+=head2 Handling errors
+
+On error producing a C<500> page, stringified exception will be written to PSGI error stream.
 
 =head1 SEE ALSO
 
