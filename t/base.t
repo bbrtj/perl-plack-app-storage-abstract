@@ -36,7 +36,7 @@ test_psgi(
 		is $res->code, 200, 'foo/bar/baz code ok';
 		is $res->header('Content_Type'), 'text/plain; charset=utf-8', 'content-type ok';
 		is $res->header('Content_Length'), length $content, 'content-length ok';
-		is $res->header('Last_Modified'), L(), 'last-modified ok';
+		is $res->header('Last_Modified'), T(), 'last-modified ok';
 		is $res->content, $content, 'content ok';
 
 		# technically, Storage::Abstract handles updir, curdir and extra separators
