@@ -4,4 +4,5 @@ on 'test' => sub {
 
 requires 'Storage::Abstract' => '0.002';
 requires 'Plack';
+requires 'Try::Tiny';
 

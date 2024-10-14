@@ -6,7 +6,7 @@ use warnings;
 use Storage::Abstract;
 use Plack::MIME;
 use HTTP::Date;
-use Feature::Compat::Try;
+use Try::Tiny;
 use Scalar::Util qw(blessed);
 use parent 'Plack::Component';
 
@@ -31,11 +31,16 @@ sub call
 	my $path = $env->{PATH_INFO};
 	my $fh;
 	my %info;
+	my $e;
 
 	try {
 		$fh = $self->storage->retrieve($path, \%info);
 	}
-	catch ($e) {
+	catch {
+		$e = $_;
+	};
+
+	if ($e) {
 		if (blessed $e && $e->isa('Storage::Abstract::X::NotFound')) {
 			return $self->_error_code(404);
 		}
